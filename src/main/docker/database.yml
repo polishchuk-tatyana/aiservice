@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  aiservice-database:
+    image: postgres:13.3
+    container_name: aiservice-database
+    restart: always
+    environment:
+      POSTGRES_DB: "AIService"
+      POSTGRES_USER: "AIService"
+      POSTGRES_HOST_AUTH_METHOD: trust
+      DB_PORT: 5432
+    ports:
+      - "5432:5432"

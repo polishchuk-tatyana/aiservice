@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+
+  app:
+    image: 'aiservice:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - aiservice-database
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://aiservice-database:5432/AIService"
+      SPRING_DATASOURCE_USERNAME: "AIService"
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+
+  aiservice-database:
+    image: postgres:13.3
+    container_name: aiservice-database
+    restart: always
+    environment:
+      POSTGRES_DB: "AIService"
+      POSTGRES_USER: "AIService"
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
